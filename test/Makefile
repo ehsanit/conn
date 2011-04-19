@@ -9,7 +9,7 @@ test_client: client.c clienttest.c
 	gcc clienttest.c -o clienttest.a -lcunit
 
 test_server: server.c test_tcpserver.c
-	gcc test_tcpserver.c -DTEST -o servertest.a -lcunit
+	gcc test_tcpserver.c -DTEST -o servertest.a -lcunit && ./servertest.a
 
 tcpserver: tcpserver.c
 	gcc tcpserver.c -o tcpserver

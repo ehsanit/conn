@@ -23,8 +23,9 @@ tcpclient: tcpclient.c tcpclient_main.c
 	 $(GCC) tcpclient_main.c -o tcpc 
 
 #Compiling the TCP server
-tcpserver: tcpserver.c tcpserver_main.c
-	$(GCC) tcpserver_main.c -o tcps 
+#tcpserver: tcpserver.c tcpserver_main.c
+tcpserver: src/tcpserver_main.c
+	$(GCC) src/tcpserver_main.c -o bin/tcps 
 
 #Compiling velocity controll
 velo: velocity.c

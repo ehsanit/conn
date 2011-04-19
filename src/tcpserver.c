@@ -6,6 +6,11 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <netinet/in.h>
+
+/*#include <sys/socket.h> */
+#include <arpa/inet.h> /* ifdef? */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <netdb.h>
@@ -59,6 +64,9 @@ int socket_create(){
     exit(EXIT_FAILURE);
   }
   else{
+  	#ifdef TEST
+        return 0; /* success */
+    #endif
     printf("Created tcp socket\n");
   }
 
@@ -73,9 +81,6 @@ int socket_reusing(){
       exit(EXIT_FAILURE);
     }
   else{
-  	#ifdef TEST
-        return 0; /* success */
-    #endif
     printf("Reusing socket\n");
   }
  
@@ -89,7 +94,14 @@ int socket_bind(){
   server.sin_port = htons(PORT); //host to network short 
   server.sin_addr.s_addr = INADDR_ANY; //assigning mine ip adess
 
- if((bind(socket_tcp, (struct sockaddr *)&server, sizeof(struct sockaddr)))==-1){  
+//    #ifdef TEST
+        int bind_out;
+        bind_out = bind(socket_tcp, (struct sockaddr *)&server, sizeof(struct sockaddr));
+        printf("bind result:%d\n", bind_out);
+//    #endif
+    
+// if((bind(socket_tcp, (struct sockaddr *)&server, sizeof(struct sockaddr)))==-1){
+   if(bind_out ==-1) {	
     perror("bind()");
     #ifdef TEST
         return 1; /* error */
