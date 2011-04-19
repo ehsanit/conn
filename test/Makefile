@@ -8,8 +8,8 @@ default:
 test_client: client.c clienttest.c
 	gcc clienttest.c -o clienttest -lcunit
 
-test_server: server.c servertest.c
-	gcc servertest.c -o servertest -lcunit
+test_server: server.c test_tcpserver.c
+	gcc test_tcpserver.c -o servertest -lcunit
 
 tcpserver: tcpserver.c
 	gcc tcpserver.c -o tcpserver
