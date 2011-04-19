@@ -1,5 +1,16 @@
+/*! 
+    @file tcpserver.c
+    @author Michal Musialik 
+*/
+
+#include <stdio.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <netdb.h>
+#include <string.h>
 #include "mask_con.c"
-/*Author michal musialik*/
 
 #define IP_BUFFER_LENGTH 200
 #define PORT 9600 // port macro
@@ -63,7 +74,7 @@ int socket_reusing(){
 
 }
 
-int socket_binding(){
+int socket_bind(){
 
   server.sin_family = AF_INET; //allways afinet if its tcp
   server.sin_port = htons(PORT); //host to network short 
@@ -72,8 +83,14 @@ int socket_binding(){
  if((bind(socket_tcp, (struct sockaddr *)&server, sizeof(struct sockaddr)))==-1){  
     perror("bind()");
     exit(EXIT_FAILURE);
+    #ifdef TEST
+        return 1; /* error */
+    #endif
   }
   else{
+  	#ifdef TEST
+        return 0; /* success */
+    #endif
     printf("Binding server socket\n");
   }
 

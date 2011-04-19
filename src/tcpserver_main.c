@@ -1,10 +1,3 @@
-#include <stdio.h>
-#include <sys/types.h>
-#include <netinet/in.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <netdb.h>
-#include <string.h>
 #include "tcpserver.c"
 
 /*Author Michal Musialik*/
