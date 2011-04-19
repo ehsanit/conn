@@ -6,10 +6,10 @@ default:
 	@echo "tcpserver first"
 
 test_client: client.c clienttest.c
-	gcc clienttest.c -o clienttest -lcunit
+	gcc clienttest.c -o clienttest.a -lcunit
 
 test_server: server.c test_tcpserver.c
-	gcc test_tcpserver.c -o servertest -lcunit
+	gcc test_tcpserver.c -DTEST -o servertest.a -lcunit
 
 tcpserver: tcpserver.c
 	gcc tcpserver.c -o tcpserver

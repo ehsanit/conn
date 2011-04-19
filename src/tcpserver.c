@@ -46,6 +46,9 @@ int host_setup(){
 
 }
 
+/*!
+    \brief Creates a TCP socket
+*/
 int socket_create(){
 
  if(( socket_tcp = socket(AF_INET,SOCK_STREAM,0))==-1){

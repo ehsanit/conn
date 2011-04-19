@@ -5,7 +5,7 @@
 #include "../src/tcpserver.c"
 
 /*! 
-    @author Ali, Kuhan, Mihail, Eugene
+    @author Ali, Kuhan, Michal, Eugene
 */
 
 
@@ -29,7 +29,7 @@ int main() {
     /**************************************************************************/
     /* add socket tests */
 
-    CU_pSuite Bind = CU_add_suite("Create and Connect socket", NULL, NULL);
+    CU_pSuite Bind = CU_add_suite("tcp_server.c: Create and connect to a socket", NULL, NULL);
     
     CU_add_test(Bind, "Creating a socket", test1_create);    
     CU_add_test(Bind, "Binding address to a socket", test2_bind);
