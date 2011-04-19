@@ -127,9 +127,15 @@ struct sockaddr_in client;
  
  if(( new_socket = accept(socket_tcp, (struct sockaddr *)&client, &addrlen))==-1){
     perror("accept()");
+    #ifdef TEST
+        return 1; /* error */
+    #endif
     exit(EXIT_FAILURE);
   }
   else{ 
+  	#ifdef TEST
+        return 0; /* success */
+    #endif
     printf("Client IP is %s and port is : %d \n", inet_ntoa(client.sin_addr), ntohs(client.sin_port));
   }
 
