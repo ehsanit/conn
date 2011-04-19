@@ -50,6 +50,9 @@ int socket_create(){
 
  if(( socket_tcp = socket(AF_INET,SOCK_STREAM,0))==-1){
     perror("create()");
+    #ifdef TEST
+        return 1; /* error */
+    #endif
     exit(EXIT_FAILURE);
   }
   else{
@@ -67,6 +70,9 @@ int socket_reusing(){
       exit(EXIT_FAILURE);
     }
   else{
+  	#ifdef TEST
+        return 0; /* success */
+    #endif
     printf("Reusing socket\n");
   }
  
@@ -82,10 +88,10 @@ int socket_bind(){
 
  if((bind(socket_tcp, (struct sockaddr *)&server, sizeof(struct sockaddr)))==-1){  
     perror("bind()");
-    exit(EXIT_FAILURE);
     #ifdef TEST
         return 1; /* error */
     #endif
+    exit(EXIT_FAILURE);
   }
   else{
   	#ifdef TEST
