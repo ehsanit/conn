@@ -122,9 +122,16 @@ int socket_listening(){
 
  if((listen(socket_tcp, BACKLOG))<0){
     perror("listen()");
+    #ifdef TEST
+        return 1; /* error */
+    #endif
     exit(EXIT_FAILURE);
   }
   else{
+	#ifdef TEST
+        return 0; /* success */
+    #endif
+
     printf("Listening for connections\n");
   }
 
