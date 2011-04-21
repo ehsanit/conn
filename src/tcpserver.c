@@ -6,35 +6,28 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <netinet/in.h>
-
-/*#include <sys/socket.h> */
-#include <arpa/inet.h> /* ifdef? */
-
-
+#include <arpa/inet.h> 
 #include <stdio.h>
 #include <stdlib.h>
 #include <netdb.h>
 #include <string.h>
 #include "mask_con.c"
 
-#define IP_BUFFER_LENGTH 200
-#define PORT 9600 // port macro
-#define BUFFER_SIZE 32 // message buffer size
-#define BACKLOG 5 //Number of socket connection aviable in listen
+#define IP_BUFFER_LENGTH 200 /*Buffer for IP adress*/
+#define PORT 9600 /*IP port adress*/
+#define BUFFER_SIZE 32 /*Buffer size of messages*/
+#define BACKLOG 3 //Number of connection pending
 
-int socket_tcp; // tcp_socket name
-int new_socket;//name of incomming socket
-int receive; // receive value
-int sending; //sending value
-int addrlen; // length of an adress
-int on = 1;//setcokopt option_value argument
-char ip_buffer[IP_BUFFER_LENGTH];//buffer for ip
-char reciv_data[BUFFER_SIZE]; // buffer for message length
+int socket_tcp; /*tcp socket name*/
+int new_socket;/*Name of the oncomming socket connection*/
+int byte; /*Byte of message*/
+int addrlen; /*Length of an adress*/
+int on = 1;/*setcokopt option_value argument*/
+char ip_buffer[IP_BUFFER_LENGTH];/*Host ip */
+char reciv_data[BUFFER_SIZE]; /*Recived data*/
 
-
-struct sockaddr_in server;
-
-int temp;//variable for parsing from string to int 
+struct sockaddr_in client;/*Struct for socket adress*/
+struct sockaddr_in server;/*Struct for socket adress*/
 
 
 /*Function to get hosts IP information*/
@@ -74,6 +67,7 @@ int socket_create(){
 
 }
 
+/*Reusing ceated socket*/
 int socket_reusing(){
 
  if (setsockopt(socket_tcp, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0){
@@ -88,6 +82,7 @@ int socket_reusing(){
 
 }
 
+/*Binding socket to an adress*/
 int socket_bind(){
 
   server.sin_family = AF_INET; //allways afinet if its tcp
@@ -118,6 +113,7 @@ int socket_bind(){
  return 0;
 }
 
+/*Listening for incomming connections*/
 int socket_listening(){
 
  if((listen(socket_tcp, BACKLOG))<0){
@@ -142,7 +138,7 @@ int socket_listening(){
 
 int new_socket_creation(){
 
-struct sockaddr_in client;  
+  // remove if struct sockaddr_in client;  
  
  if(( new_socket = accept(socket_tcp, (struct sockaddr *)&client, &addrlen))==-1){
     perror("accept()");
@@ -163,44 +159,29 @@ struct sockaddr_in client;
 }
 
 
-
+/*Data exchage betwen other socket*/
 int data_passing(){
  
  
-  /*accepting connection*/
-  /*creating new socket and checking if the socket can be created*/
-  
-  
-
   while(1){
     
-    receive = recv(new_socket,reciv_data,BUFFER_SIZE,0);
-    
-    /*printing in message send from the client*/
-    
-    reciv_data[receive]= '\0';
+    byte = recv(new_socket,reciv_data,BUFFER_SIZE,0);
+    reciv_data[byte]= '\0';
     
     if (strcmp(reciv_data,"quit")==0){
       close(new_socket);
       printf("Closing server\n");
       break;	   
     } 
-    else if(strcmp(reciv_data,"setupGps")==0){
-      //   void setupGPSSyetem();
-      printf("In GPS setup\n");
-    }
     else{
       printf("%s\n", reciv_data); 
-      temp = atoi(reciv_data);
-      start(temp);
-      lift_off(temp);
-      altitude(temp);
+      send(new_socket,reciv_data,strlen(reciv_data),0);
+
+
     }
   }
-      close(socket_tcp);  
-     /*Creating a tcp socket and checking if the socket is created suceffuly*/
+      close(socket_tcp);
    
- 
       return 0;
    
 }

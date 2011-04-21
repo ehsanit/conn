@@ -14,7 +14,7 @@ int main(int argc,char *argv[]){
   socket_host(argv);
   socket_create();
   socket_binding();
-  socket_connection();
+  socket_connection(argv);
   data_passing();  
 
   return 0;
