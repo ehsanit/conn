@@ -21,6 +21,11 @@ void test2_bind(void) {
     CU_ASSERT(socket_bind() == 0);
 }
 
+/*Test 3: listening for incomming connection*/
+void test3_listen(void) {
+    CU_ASSERT(socket_listening() == 0);	
+}
+
 
 int main() {
     /**************************************************************************/
@@ -33,7 +38,7 @@ int main() {
     
     CU_add_test(Bind, "Creating a socket", test1_create);    
     CU_add_test(Bind, "Binding address to a socket", test2_bind);
-    
+    CU_add_test(Bind, "Listening for sockets", test3_listen); 
     /**************************************************************************/
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
