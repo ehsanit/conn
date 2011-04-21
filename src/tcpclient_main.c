@@ -9,6 +9,11 @@
 #include <sys/types.h>
 #include "tcpclient.c"
 
+/*! 
+    @file tcpclient.c
+    @author Michal Musialik 
+*/
+
 int main(int argc,char *argv[]){
   
   socket_host(argv);

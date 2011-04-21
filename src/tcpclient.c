@@ -35,7 +35,7 @@ return 0;
 }
 
 /*Creating socket*/
-int socket_create(){
+int socket_create(void){
 
  if((socket_tcp = socket(AF_INET, SOCK_STREAM,0))==-1){
      printf("socket()");
@@ -49,7 +49,7 @@ int socket_create(){
 }
 
 /*Binding socket*/
-int socket_binding(){
+int socket_binding(void){
 
  connecting.sin_family = AF_INET;
  connecting.sin_port = htons(PORT); //my port here
@@ -77,7 +77,7 @@ int socket_connection(char *argv[]){
 
 
 /*Data transfer*/
- int data_passing(){
+ int data_passing(void){
 
  while(1){
 

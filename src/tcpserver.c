@@ -3,15 +3,6 @@
     @author Michal Musialik 
 */
 
-#include <stdio.h>
-#include <sys/types.h>
-#include <netinet/in.h>
-#include <arpa/inet.h> 
-#include <stdio.h>
-#include <stdlib.h>
-#include <netdb.h>
-#include <string.h>
-#include "mask_con.c"
 
 #define IP_BUFFER_LENGTH 200 /*Buffer for IP adress*/
 #define PORT 9600 /*IP port adress*/
@@ -31,7 +22,7 @@ struct sockaddr_in server;/*Struct for socket adress*/
 
 
 /*Function to get hosts IP information*/
-int host_setup(){
+void host_setup(void){
 
   struct hostent * Host ;
   gethostname(ip_buffer , IP_BUFFER_LENGTH);
@@ -40,14 +31,12 @@ int host_setup(){
   printf("Host name : %s\n", Host->h_name) ;
   printf("Host IP Address : %s\n", inet_ntoa(*((struct in_addr *)Host->h_addr)));
 
-  return 0; 
-
 }
 
 /*!
     \brief Creates a TCP socket
 */
-int socket_create(){
+int socket_create(void){
 
  if(( socket_tcp = socket(AF_INET,SOCK_STREAM,0))==-1){
     perror("create()");
@@ -68,7 +57,7 @@ int socket_create(){
 }
 
 /*Reusing ceated socket*/
-int socket_reusing(){
+int socket_reusing(void){
 
  if (setsockopt(socket_tcp, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0){
       perror("setsockopt()");
@@ -83,7 +72,7 @@ int socket_reusing(){
 }
 
 /*Binding socket to an adress*/
-int socket_bind(){
+int socket_bind(void){
 
   server.sin_family = AF_INET; //allways afinet if its tcp
   server.sin_port = htons(PORT); //host to network short 
@@ -114,7 +103,7 @@ int socket_bind(){
 }
 
 /*Listening for incomming connections*/
-int socket_listening(){
+int socket_listening(void){
 
  if((listen(socket_tcp, BACKLOG))<0){
     perror("listen()");
@@ -136,7 +125,7 @@ int socket_listening(){
 
 
 
-int new_socket_creation(){
+int new_socket_creation(void){
 
   // remove if struct sockaddr_in client;  
  
@@ -160,7 +149,7 @@ int new_socket_creation(){
 
 
 /*Data exchage betwen other socket*/
-int data_passing(){
+void data_passing(void){
  
  
   while(1){
@@ -181,8 +170,6 @@ int data_passing(){
     }
   }
       close(socket_tcp);
-   
-      return 0;
    
 }
 
