@@ -19,29 +19,29 @@ default:
 	@echo "------------------------------------------------------"
 
 #Compiling the TCP client
-tcpclient: tcpclient.c tcpclient_main.c 
-	 $(GCC) tcpclient_main.c -o tcpc 
+tcpclient: src/conn_tcpclient_main.c 
+	 $(GCC) src/conn_tcpclient_main.c -o bin/tcpc 
 
 #Compiling the TCP server
 #tcpserver: tcpserver.c tcpserver_main.c
-tcpserver: src/tcpserver_main.c
-	$(GCC) src/tcpserver_main.c -o bin/tcps 
+tcpserver: src/conn_tcpserver_main.c
+	$(GCC) src/conn_tcpserver_main.c -o bin/tcps 
 
 #Compiling velocity controll
-velo: velocity.c
-	$(GCC) velocity.c -o velo  
+velo: src/conn_velocity.c
+	$(GCC) src/conn_velocity.c -o bin/velo  
 
 #compiling maks for controll
-mask_con: mask_con.c
-	$(GCC) mask_con.c -o mask_con
+mask_con: src/conn_mask_con.c
+	$(GCC) src/conn_mask_con.c -o bin/mask_con
 
 #compiling host
-gethost: gethost.c
-	$(GCC) gethost.c -o gethost
+gethost: src/conn_gethost.c
+	$(GCC) src/conn_gethost.c -o bin/gethost
 
 #Removing creataed binary
 clean:
 	$(RM) tcpc tcps velo mask_con gethost
 
 
-all_tcp: tcpserver tcpclient 
+all_tcp: ctcpserver tcpclient 
