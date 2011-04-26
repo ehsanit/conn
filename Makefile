@@ -41,7 +41,7 @@ gethost: src/conn_gethost.c
 
 #Removing creataed binary
 clean:
-	$(RM) tcpc tcps velo mask_con gethost
+	$(RM) bin/tcpc bin/tcps bin/velo bin/mask_con bin/gethost
 
 
 all_tcp: ctcpserver tcpclient 
