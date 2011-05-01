@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "CUnit/Basic.h"
-#include "../src/conn_tcpserver.c"
+#include "../src/tcpserver.c"
 
 /*! 
     @author Ali, Kuhan, Michal, Eugene

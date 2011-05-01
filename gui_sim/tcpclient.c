@@ -55,14 +55,14 @@ int socket_connection(){
 }
 
 
-void send_up (void){
-  printf("Sending up\n");
+void send_foward (void){
+  printf("Sending foward\n");
   send(socket_tcp,"10",2,0);
   
 }
 
-void send_down (void){
- printf("Sending down\n"); 
+void send_back (void){
+ printf("Sending back\n"); 
  send(socket_tcp,"5",2,0);
   
 }
@@ -80,7 +80,44 @@ void send_right (void){
 }
 
 void send_exit(void){
- printf("shutting\n");
+ printf("Shutting\n");
   send(socket_tcp,"quit",4,0);
   close(socket_tcp);
+}
+
+
+void send_auto(void){
+
+  printf("Auto mode\n");
+  send(socket_tcp,"",1,0);
+}
+
+void send_hover(void){
+
+  printf("Hover mode\n");
+  send(socket_tcp,"15",2,0);
+}
+
+void send_landing(){
+
+  printf("landing\n");
+  send(socket_tcp,"16",2,0);
+}
+
+void send_alt_up(void){
+
+  printf("Alt up\n");
+  send(socket_tcp,"",1,0);
+}
+
+void send_alt_down(void){
+
+  printf("Alt down\n");
+  send(socket_tcp,"",1,0);
+}
+
+void send_camera(void){
+  
+  printf("Camera\n");
+  send(socket_tcp,"",1,0);
 }

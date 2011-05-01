@@ -46,11 +46,13 @@ gethost: src/conn_gethost.c
 	$(GCC) src/conn_gethost.c -o bin/gethost
 
 #server in debug mode
-tcpserver_debug: src/tcpserver.c
+tcpserver_debug: src/conn_tcpserver_main.c
 	$(GCC) src/conn_tcpserver_main.c -DDEBUG -o tcps_debug
 
 #client in debug mode
+tcpclient_debug: src/conn_tcpclient_main.c
 	$(GCC) src/conn_tcpclient_main.c -DDEBUG -o tcpc_debug
+
 #Removing creataed binary
 clean:
 	$(RM) bin/tcpc bin/tcps bin/velo bin/mask_con bin/gethost

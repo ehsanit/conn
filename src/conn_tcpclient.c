@@ -76,7 +76,6 @@ int conn_socket_binding(void){
 /*Connection to a host*/
 int conn_socket_connection(char *argv[]){
 
-
  if(connect(socket_tcp,(struct sockaddr *)&connecting,sizeof(struct sockaddr))==-1)
   {
 #ifdef DEBUG
